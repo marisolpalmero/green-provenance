@@ -46,7 +46,7 @@ author:
  - ins: R. Österberg
    fullname: Robin Österberg
    organization: Kodeta
-   email: robin@kodeta.se
+   email: robin.ietf@kodeta.se
 
 
 
