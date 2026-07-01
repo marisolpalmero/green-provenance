@@ -21,8 +21,8 @@ venue:
   type: ""
   mail: "green@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/green/"
-  github: "https://github.com/ietf-wg-green/draft-ietf-green-framework"
-  latest: "https://github.com/ietf-wg-green/draft-ietf-green-framework.html"
+  github: "https://github.com/marisolpalmero/green-provenance.git"
+  latest: "https://github.com/marisolpalmero/draft-madpr-green-provenance.html"
 
 
 author:
