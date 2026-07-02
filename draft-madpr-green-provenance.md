@@ -35,8 +35,8 @@ author:
    fullname: Diego Lopez
    organization: Telefonica
    email: diego.r.lopez@telefonica.com
- - ins: A. Gutierrez
-   fullname: Ana Gutierrez
+ - ins: A. Mendez
+   fullname: Ana Mendez
    organization: Telefonica
    email: ana.mendezperez@telefonica.com
  - ins: P. Andersson
