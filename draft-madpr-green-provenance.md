@@ -35,8 +35,8 @@ author:
    fullname: Diego Lopez
    organization: Telefonica
    email: diego.r.lopez@telefonica.com
- - ins: A. Gutierrez
-   fullname: Ana Gutierrez
+ - ins: A. Mendez Perez
+   fullname: Ana Mendez Perez
    organization: Telefonica
    email: ana.mendezperez@telefonica.com
  - ins: P. Andersson
@@ -191,14 +191,14 @@ module ietf-green-provenance {
   import ietf-power-and-energy {
     prefix eo;
     reference
-      "I-D.bcmj-green-power-and-energy-yang: Power and Energy
+      "I-D.ietf-green-power-and-energy-yang: Power and Energy
        YANG Module";
   }
 
   import ietf-yang-provenance {
     prefix iyangprov;
     reference
-      "ProvenanceDraft: Applying COSE Signatures
+      "I-D.ietf-opsawg-yang-provenance: Applying COSE Signatures
        for YANG Data Provenance";
   }
 
@@ -285,7 +285,7 @@ module ietf-green-provenance {
        Object entry.  All leaves are set by the controller after
        verifying a COSE provenance signature associated with this
        Energy Object's telemetry, per
-       ProvenanceDraft.  The provenance-signature
+       I-D.ietf-opsawg-yang-provenance.  The provenance-signature
        value itself is not stored here; see Section 3.2 of this
        document.";
 
@@ -302,7 +302,7 @@ module ietf-green-provenance {
       reference
         "RFC 9052: CBOR Object Signing and Encryption (COSE),
          Section 3.1;
-         ProvenanceDraft, Section 3.1";
+         I-D.ietf-opsawg-yang-provenance, Section 3.1";
     }
 
     leaf provenance-key-owner {
