@@ -195,13 +195,6 @@ module ietf-green-provenance {
        YANG Module";
   }
 
-  import ietf-yang-provenance {
-    prefix iyangprov;
-    reference
-      "I-D.ietf-opsawg-yang-provenance: Applying COSE Signatures
-       for YANG Data Provenance";
-  }
-
   import ietf-yang-types {
     prefix yang;
     reference
