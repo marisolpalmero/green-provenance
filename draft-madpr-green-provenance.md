@@ -53,6 +53,9 @@ author:
 normative:
   RFC7950:
   RFC9052:
+  RFC8341:
+  RFC3688:
+  RFC6020:
 
 informative:
   ProvenanceDraft: I-D.ietf-opsawg-yang-provenance
