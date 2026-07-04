@@ -4,12 +4,10 @@ abbrev: "GREEN-Provenance"
 category: std
 docname: draft-madpr-green-provenance-latest
 submissiontype: IETF
-number:
-date:
 consensus: true
 v: 3
 area: OPS
-workgroup: GREEN
+wg: GREEN
 kw:
  - GREEN
  - provenance
@@ -23,7 +21,6 @@ venue:
   arch: "https://mailarchive.ietf.org/arch/browse/green/"
   github: "https://github.com/marisolpalmero/green-provenance.git"
   latest: "https://github.com/marisolpalmero/draft-madpr-green-provenance.html"
-
 
 author:
 
