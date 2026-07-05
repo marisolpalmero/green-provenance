@@ -2,7 +2,7 @@
 title: "Provenance Traceability Augmentation for the GREEN Power and Energy YANG Module"
 abbrev: "GREEN-Provenance"
 category: std
-docname: draft-madpr-green-provenance-latest
+docname: draft-madpr-green-provenance-00
 submissiontype: IETF
 consensus: true
 v: 3
