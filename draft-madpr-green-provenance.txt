@@ -583,14 +583,6 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-green-
               terminology-02>.
 
-   [GreenUseCases]
-              Stephan, E., Palmero, M. P., Claise, B., Wu, Q.,
-              Contreras, L. M., Bernardos, C. J., and X. Chen, "Use
-              Cases for Energy Efficiency Management", Work in Progress,
-              Internet-Draft, draft-ietf-green-use-cases-01, 22 January
-              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              green-use-cases-01>.
-
    [PowerAndEnergy]
               Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
               "Power and Energy YANG Module", Work in Progress,
