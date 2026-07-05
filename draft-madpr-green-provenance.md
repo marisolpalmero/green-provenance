@@ -74,7 +74,7 @@ informative:
 
 This document defines a YANG module that augments the GREEN Power and Energy YANG Module {{PowerAndEnergy}} to record the result of provenance verification for each Energy Object.
 
-The augmentation builds on the COSE-based signing mechanism defined in {{ProvenanceDraft}}. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key — whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.
+The augmentation builds on the COSE-based signing mechanism defined in {{ProvenanceDraft}}. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key, whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.
 
 This allows operators and auditors to verify not just that energy data is correct, but that it came from where it claims to have come from, and to understand the level of trust that applies to each source.
 
