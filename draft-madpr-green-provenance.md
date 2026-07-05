@@ -42,8 +42,8 @@ author:
    fullname: Per Andersson
    organization: Ionio Systems
    email: per.ietf@ionio.se
- - ins: R. Österberg
-   fullname: Robin Österberg
+ - ins: R. Osterberg
+   fullname: Robin Osterberg
    organization: Kodeta
    email: robin.ietf@kodeta.se
 
@@ -57,7 +57,16 @@ normative:
   RFC6020:
 
 informative:
-  ProvenanceDraft: I-D.ietf-opsawg-yang-provenance
+  ProvenanceDraft:
+    title: "Applying COSE Signatures for YANG Data Provenance"
+    author:
+      - ins: D. Lopez
+      - ins: A. Pastor
+      - ins: A.H. Feng
+      - ins: A.M. Perez
+      - ins: H. Birkholz
+    seriesinfo:
+      Internet-Draft: draft-ietf-opsawg-yang-provenance-06
   PowerAndEnergy: I-D.ietf-green-power-and-energy-yang
   RFC8340:
   GreenTerminology: I-D.ietf-green-terminology
