@@ -2,14 +2,14 @@
 
 
 
-GREEN                                                         M. Palmero
+Getting Ready for Energy-Efficient Networking                 M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                                D. Lopez
 Expires: 6 January 2027                                  A. Mendez Perez
                                                               Telefonica
                                                             P. Andersson
                                                            Ionio Systems
-                                                            R. Österberg
+                                                            R. Osterberg
                                                                   Kodeta
                                                              5 July 2026
 
@@ -27,7 +27,7 @@ Abstract
    The augmentation builds on the COSE-based signing mechanism defined
    in [ProvenanceDraft].  For each Energy Object, it records whether the
    most recent provenance signature was valid, which key was used to
-   sign it, and who is responsible for that key — whether the device
+   sign it, and who is responsible for that key, whether the device
    itself, the network controller acting on its behalf, or an external
    authority such as a grid energy provider.
 
@@ -591,10 +591,10 @@ Table of Contents
               ietf-green-power-and-energy-yang-03>.
 
    [ProvenanceDraft]
-              Lopez, D., Pastor, A., Feng, A. H., Pérez, A. M., and H.
+              Lopez, D., Pastor, A., Feng, A. H., Perez, A. M., and H.
               Birkholz, "Applying COSE Signatures for YANG Data
               Provenance", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-yang-provenance-06, 4 July 2026,
+              opsawg-yang-provenance-06, n.d.,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               yang-provenance-06>.
 
@@ -635,6 +635,6 @@ Authors' Addresses
    Email: per.ietf@ionio.se
 
 
-   Robin Österberg
+   Robin Osterberg
    Kodeta
    Email: robin.ietf@kodeta.se

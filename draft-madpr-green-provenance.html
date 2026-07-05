@@ -9,10 +9,10 @@
 <meta content="Diego Lopez" name="author">
 <meta content="Ana Mendez Perez" name="author">
 <meta content="Per Andersson" name="author">
-<meta content="Robin Österberg" name="author">
+<meta content="Robin Osterberg" name="author">
 <meta content="
        This document defines a YANG module that augments the GREEN Power and Energy YANG Module   to record the result of provenance verification for each Energy Object. 
-       The augmentation builds on the COSE-based signing mechanism defined in  . For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key — whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. 
+       The augmentation builds on the COSE-based signing mechanism defined in  . For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key, whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. 
        This allows operators and auditors to verify not just that energy data is correct, but that it came from where it claims to have come from, and to understand the level of trust that applies to each source. 
     " name="description">
 <meta content="xml2rfc 3.34.0" name="generator">
@@ -1066,7 +1066,7 @@ svg {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">GREEN</dd>
+<dd class="workgroup">Getting Ready for Energy-Efficient Networking</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-madpr-green-provenance-latest</dd>
 <dt class="label-published">Published:</dt>
@@ -1096,7 +1096,7 @@ svg {
 <div class="org">Ionio Systems</div>
 </div>
 <div class="author">
-      <div class="author-name">R. Österberg</div>
+      <div class="author-name">R. Osterberg</div>
 <div class="org">Kodeta</div>
 </div>
 </dd>
@@ -1106,7 +1106,7 @@ svg {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a YANG module that augments the GREEN Power and Energy YANG Module <span>[<a href="#PowerAndEnergy" class="cite xref">PowerAndEnergy</a>]</span> to record the result of provenance verification for each Energy Object.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">The augmentation builds on the COSE-based signing mechanism defined in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key — whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">The augmentation builds on the COSE-based signing mechanism defined in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key, whether the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">This allows operators and auditors to verify not just that energy data is correct, but that it came from where it claims to have come from, and to understand the level of trust that applies to each source.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1671,7 +1671,7 @@ reference: RFC XXXX
 <dd class="break"></dd>
 <dt id="ProvenanceDraft">[ProvenanceDraft]</dt>
         <dd>
-<span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Feng, A. H.</span>, <span class="refAuthor">Pérez, A. M.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Applying COSE Signatures for YANG Data Provenance"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-yang-provenance-06</span>, <time datetime="2026-07-04" class="refDate">4 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Feng, A. H.</span>, <span class="refAuthor">Perez, A. M.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Applying COSE Signatures for YANG Data Provenance"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-yang-provenance-06</span>, <span>n.d.</span>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
       <dd>
@@ -1728,7 +1728,7 @@ reference: RFC XXXX
 </div>
 </address>
 <address class="vcard">
-        <div dir="auto" class="left"><span class="fn nameRole">Robin Österberg</span></div>
+        <div dir="auto" class="left"><span class="fn nameRole">Robin Osterberg</span></div>
 <div dir="auto" class="left"><span class="org">Kodeta</span></div>
 <div class="email">
 <span>Email:</span>
