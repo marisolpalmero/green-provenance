@@ -62,7 +62,6 @@ informative:
   RFC8340:
   GreenTerminology: I-D.ietf-green-terminology
   GreenFramework: I-D.ietf-green-framework
-  GreenUseCases: I-D.ietf-green-use-cases
 
 --- abstract
 
