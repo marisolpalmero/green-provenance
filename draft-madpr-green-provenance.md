@@ -8,6 +8,8 @@ consensus: true
 v: 3
 area: OPS
 wg: GREEN
+area: "Operations and Management"
+workgroup: "Getting Ready for Energy-Efficient Networking"
 kw:
  - GREEN
  - provenance
@@ -16,11 +18,11 @@ kw:
  - energy
 venue:
   group: "Getting Ready for Energy-Efficient Networking"
-  type: ""
+  type: "Working Group"
   mail: "green@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/green/"
-  github: "https://github.com/marisolpalmero/green-provenance.git"
-  latest: "https://github.com/marisolpalmero/draft-madpr-green-provenance.html"
+  github: "marisolpalmero/green-provenance"
+  latest: "https://marisolpalmero.github.io/green-provenance/draft-madpr-green-provenance.html"
 
 author:
 
@@ -83,7 +85,7 @@ As energy telemetry is increasingly used for regulatory reporting, renewable ene
 This document augments the GREEN Power and Energy YANG Module with five read-only leaves under
 `/energy-objects/energy-entry`. These leaves expose:
 
-1. the Key Identifier (`kid`) associated with the most recently verified/received provenance signature; 
+1. the Key Identifier (`kid`) associated with the most recently verified/received provenance signature;
 
 2. the entity that provisioned and manages the corresponding signing key;
 
@@ -132,12 +134,12 @@ This document avoids that problem entirely. The `provenance-signature` binary de
 This document records only the verification result, not the signature itself, so the interoperability concern above does not apply.
 
 ## Why provenance-key-owner and provenance-key-id are both needed
-  
+
 A successful provenance verification identifies the signing key used to produce the signature. It does not identify the entity that manages that key.
 
 The GREEN Framework {{GreenFramework}} distinguishes between device-initiated and controller-initiated, with provenance generation:
 
-- In the device-initiated model, the Energy Object generates and manages its own signing key and produces the provenance signature directly. 
+- In the device-initiated model, the Energy Object generates and manages its own signing key and produces the provenance signature directly.
 
 - In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself.
 
