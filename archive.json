@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-02T02:10:01.035529+00:00",
+  "timestamp": "2026-07-05T02:00:27.327465+00:00",
   "repo": "marisolpalmero/green-provenance",
   "labels": [
     {
@@ -50,5 +50,61 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOTKriNs7tAjbm",
+      "title": "Ana's updates",
+      "url": "https://github.com/marisolpalmero/green-provenance/pull/1",
+      "state": "CLOSED",
+      "author": "ana-mp26",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "mi apellido que estaba mal porfa, ahora reviso lo dem\u00e1s",
+      "createdAt": "2026-07-02T07:23:31Z",
+      "updatedAt": "2026-07-03T01:11:38Z",
+      "baseRepository": "marisolpalmero/green-provenance",
+      "baseRefName": "main",
+      "baseRefOid": "23e1c5b9a32d595303307ecd337d683c747cc06a",
+      "headRepository": "ana-mp26/green-provenance",
+      "headRefName": "patch-1",
+      "headRefOid": "8716f48795eacc8e82f815892e95a60a47fa0a77",
+      "closedAt": "2026-07-03T01:09:41Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "ana-mp26",
+          "authorAssociation": "NONE",
+          "body": "vale y lo \u00fanico raro que he visto es el import que luego no se usa (porque no se incluye la firma, tiene sentido)",
+          "createdAt": "2026-07-02T08:22:49Z",
+          "updatedAt": "2026-07-02T08:22:49Z"
+        },
+        {
+          "author": "marisolpalmero",
+          "authorAssociation": "OWNER",
+          "body": "As replied by Per via email: YANG provenance signature module is imported in the YANG model:\r\n\" it is used in the augment argument (the path).vI don't think that pyang can detect this...\"\r\n\r\n \r\n\r\nupdating manually instead of merging the PR",
+          "createdAt": "2026-07-03T01:09:41Z",
+          "updatedAt": "2026-07-03T01:11:38Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOTKriNs8AAAABE341HQ",
+          "commit": {
+            "abbreviatedOid": "8716f48"
+          },
+          "author": "marisolpalmero",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "thanks Ana",
+          "createdAt": "2026-07-03T01:00:56Z",
+          "updatedAt": "2026-07-03T01:00:56Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
 }
