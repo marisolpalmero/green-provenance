@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-07-16T01:29:32.497382+00:00",
+  "timestamp": "2026-07-19T01:41:25.956784+00:00",
   "repo": "marisolpalmero/green-provenance",
   "labels": [
     {
@@ -49,7 +49,135 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOTKriNs8AAAABJUhgfw",
+      "title": "Energy Objects MUST NOT populate provenance leaves",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/2",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Problem:\nCurrent v0 version, it referes  augmentation as the new leaves alongside the energy metrics\nNot explicitely said but the structure points to a controller when querying a single Energy Object. It describes who reads the data but not who writes it. This is confusing for device implentors. The device will never populate these leaves.\n\nAdd at the end of section 3.1 \"Why Augment Rather Than Define a New Container\":\nThese leaves are exclusively populated by the controller after performing COSE verification; they MUST NOT be populated by the Energy Object itself.",
+      "createdAt": "2026-07-18T23:24:36Z",
+      "updatedAt": "2026-07-18T23:24:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOTKriNs8AAAABJUiTkg",
+      "title": "The 5 leaves are controller-side only and are not carried in device notifications",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/3",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Problem:\nIntroduction lists the five leaves and explains their purpose but never states that they live exclusively in the controller's datastore and are not carried in YANG-Push notifications or NETCONF RPC replies from devices. A reader who only reads the Introduction and the tree diagram has no clear indication of where these leaves are implemented.\n\nProposed solution:\nAfter the list with the 5 leaves in the Introduction section:\n   1.  the Key Identifier (kid) associated with the most recently\n       verified/received provenance signature;\n\n   2.  the entity that provisioned and manages the corresponding signing\n       key;\n\n   3.  whether verification of the most recently received provenance\n       signature succeeded;\n\n   4.  the time at which provenance verification most recently\n       succeeded; and\n\n   5.  the reason for the most recent verification failure, when\n       applicable.\n\nInclude such paragraph:\nThese leaves are controller-side operational state. They represent the controller's assessment of the provenance of telemetry it has received from an Energy Object. They are not populated by Energy Objects themselves and are not carried in YANG-Push notifications or NETCONF RPC replies from devices. A device that receives a NETCONF get-data request MUST NOT return these leaves. They appear only in the controller's own operational datastore, populated exclusively by the controller's verification logic.",
+      "createdAt": "2026-07-18T23:29:39Z",
+      "updatedAt": "2026-07-18T23:29:59Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOTKriNs8AAAABJUi3mA",
+      "title": "Clarfication: Device might produce the signature but the controller sets provenance-key-owner",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/4",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Problem\nThe device-initiated scenario states that \"the Energy Object generates and manages its own signing key and produces the provenance signature directly.\" This is correct, but the text does not make explicit the causal chain: the device produces the COSE signature and sends it in the notification envelope; the controller receives it, verifies it, and only then sets provenance-key-owner = key-owner-device in its own datastore. A reader could infer that the device sets provenance-key-owner itself.\n\nProposed solution:\nReplace for the device-initiated reference:\n the Energy Object generates and manages its own signing key and produces the COSE provenance signature, which it carries in the YANG-Push notification envelope it sends to the controller. Upon receiving and successfully verifying this signature, the controller sets provenance-key-owner to key-owner-device in its own operational datastore. The Energy Object itself has no knowledge of this leaf and does not set it.",
+      "createdAt": "2026-07-18T23:33:06Z",
+      "updatedAt": "2026-07-18T23:55:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOTKriNs8AAAABJUjSAA",
+      "title": "explanation of +--ro notation for implementers unfamiliar with RFC 8340",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/5",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "\nThe tree diagram correctly uses +--ro for all five leaves, which per RFC 8340 means config false \u2014 operational state that only the system can write, not configuration. However the draft never explains what +--ro means. An implementer unfamiliar with RFC 8340 tree notation will not know this notation means the controller's internal logic populates these leaves and they cannot be set via NETCONF <edit-config> or any configuration mechanism.\nProposed solution:\nAdd the following sentence immediately before or after the tree diagram, Section 4.1:\n\nIn the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the system (the controller) and cannot be set via NETCONF <edit-config> or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.",
+      "createdAt": "2026-07-18T23:35:37Z",
+      "updatedAt": "2026-07-18T23:35:37Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOTKriNs8AAAABJUjxKA",
+      "title": "Section 5 > Operational considerations",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/6",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Problem:\nSection 5 opens with \"a controller implementing this augmentation\" which is the correct framing, but never explicitly states that Energy Objects (devices) do not implement this module at all. The YANG module name ietf-green-provenance carries no inherent indication of its deployment scope. A device vendor reading the YANG file in isolation might conclude they need to implement it alongside ietf-power-and-energy.\n",
+      "createdAt": "2026-07-18T23:38:32Z",
+      "updatedAt": "2026-07-18T23:45:05Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "marisolpalmero",
+          "authorAssociation": "OWNER",
+          "body": "What a device needs to implement to participate in provenance\nA device that wants to self-attest its telemetry needs to implement draft-ietf-opsawg-yang-provenance, not ietf-green-provenance. Specifically it needs to:\n\nHold a key pair (ideally TPM-backed)\nCanonicalise its YANG data before signing (per the provenance draft)\nProduce a COSE_Sign1 structure\nCarry that structure in the YANG-Push notification envelope as ietf-yp-provenance:provenance\n\nNone of that is defined in ietf-green-provenance. The device never touches the five leaves defined in this draft.",
+          "createdAt": "2026-07-18T23:40:53Z",
+          "updatedAt": "2026-07-18T23:40:53Z"
+        },
+        {
+          "author": "marisolpalmero",
+          "authorAssociation": "OWNER",
+          "body": "Problem:\nSection 5 opens with \"a controller implementing this augmentation\" but never distinguishes between the two separate implementation roles in the provenance architecture. A device vendor reading the draft has no guidance on what they need to implement to participate in GREEN provenance. \nThere are two entirely separate implementation requirements:\n\nDevice side: the Energy Object implements draft-ietf-opsawg-yang-provenance \u2014 it holds a key pair, canonicalises its telemetry, produces a COSE_Sign1 structure, and carries it in the YANG-Push notification envelope as ietf-yp-provenance:provenance. It does not implement ietf-green-provenance and has no knowledge of its five leaves.\nController side: the controller implements ietf-green-provenance \u2014 it receives the signed notification from the device, verifies the COSE_Sign1, and writes the five leaves into its own operational datastore. It does not require any changes to the device's YANG modules.\n\nProposed solution:\nReplace the first paragraph of Section 5 with:\n\nThe provenance architecture defined across this document and {{ProvenanceDraft}} involves two distinct implementation roles.\nAn Energy Object that participates in the device-initiated provenance model implements {{ProvenanceDraft}}. It generates and manages a signing key pair, canonicalises its telemetry data before signing, produces a COSE_Sign1 structure, and carries that structure in outgoing YANG-Push notification envelopes as ietf-yp-provenance:provenance. The Energy Object does not implement ietf-green-provenance and has no knowledge of the five leaves defined in this document.\nA controller implementing this augmentation receives signed notifications from Energy Objects, performs COSE signature verification per {{ProvenanceDraft}}, and updates the five leaves defined in this document accordingly. These leaves exist only in the controller's operational datastore and are never sent to or populated by the Energy Object.\nFor Energy Objects that lack native signing capability, the controller MAY implement the controller-initiated model: it collects telemetry from the device via legacy protocols such as SNMP, constructs and signs the YANG data on the device's behalf, and sets provenance-key-owner to key-owner-controller to record this trust relationship honestly.\nThis document does not mandate a specific verification trigger interval. Implementations MAY verify on every received update, or at a configured polling interval, as appropriate to the deployment.",
+          "createdAt": "2026-07-18T23:44:52Z",
+          "updatedAt": "2026-07-18T23:44:52Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOTKriNs8AAAABJUlDbQ",
+      "title": "draft-ietf-opsawg-yang-provenance as normative",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/7",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "draft overall: it currently references draft-ietf-opsawg-yang-provenance as informative, but for device implementers it is effectively normative, a device cannot participate in this architecture without implementing it. ",
+      "createdAt": "2026-07-18T23:46:17Z",
+      "updatedAt": "2026-07-18T23:46:17Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOTKriNs8AAAABJUpERw",
+      "title": "pending a controller GREEN YANG model",
+      "url": "https://github.com/marisolpalmero/green-provenance/issues/8",
+      "state": "OPEN",
+      "author": "marisolpalmero",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Clarify that the augmentation of /energy-objects/energy-entry is an interim design pending a controllerGREEN YANG model.\n\ninclude a note: it is a substantive architectural statement the WG needs to discuss. The draft is currently ambiguous on whether it is defining a device schema extension or a controller schema extension, and that ambiguity needs to be resolved before the draft can progress to WG adoption.\n\n\ncheck; include reference RFC 8342 NMDA as the architectural basis",
+      "createdAt": "2026-07-19T00:10:36Z",
+      "updatedAt": "2026-07-19T00:10:36Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
