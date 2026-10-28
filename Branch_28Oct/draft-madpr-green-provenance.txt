@@ -14,7 +14,7 @@ Expires: 1 May 2027                                      A. Mendez Perez
                                                          28 October 2026
 
 
-Provenance Traceability Augmentation for the GREEN Controller YANG Model
+      Provenance Traceability for the GREEN Controller YANG Model
                   draft-madpr-green-provenance-latest
 
 Abstract
