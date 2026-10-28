@@ -1361,10 +1361,10 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.4-2">The GREEN Framework <span>[<a href="#GreenFramework" class="cite xref">GreenFramework</a>]</span> distinguishes between device-initiated and controller-initiated, with provenance generation:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-3.1">
-            <p id="section-3.4-3.1.1">In the device-initiated model, the Energy Object generates and manages its own signing key and produces the provenance signature directly.<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-3.1.1">In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets <code>provenance-key-owner</code> to `key-owner-device in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-3.2">
-            <p id="section-3.4-3.2.1">In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-3.2.1">In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself, and sets <code>provenance-key-owner</code> to <code>key-owner-controller</code>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.4-4">Both models produce a valid COSE signature that can be verified using the associated <code>kid</code>, but they represent different trust relationships.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
@@ -1511,7 +1511,9 @@ module ietf-green-provenance {
     base key-owner-type;
     description
       "The Energy Object generated and manages its own key pair
-       and self-attests its own telemetry.";
+       and self-attests its own telemetry.  The controller
+       records this value after verifying the signature; the
+       Energy Object does not set it.;
   }
 
   identity key-owner-controller {
