@@ -60,9 +60,6 @@ normative:
       - ins: J. Lindblad
     seriesinfo:
       Internet-Draft: draft-swepcarl-green-controller-yang-00
-
-
-informative:
   ProvenanceDraft:
     title: "Applying COSE Signatures for YANG Data Provenance"
     author:
@@ -73,6 +70,8 @@ informative:
       - ins: H. Birkholz
     seriesinfo:
       Internet-Draft: draft-ietf-opsawg-yang-provenance-06
+
+informative:
   PowerAndEnergy: I-D.ietf-green-power-and-energy-yang
   RFC8340:
   RFC8342:
