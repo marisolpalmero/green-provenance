@@ -100,11 +100,12 @@ Table of Contents
      4.1.  Tree Diagram
      4.2.  YANG Module Definition
    5.  Operational Considerations
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   6.  Operational Considerations
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -563,22 +564,41 @@ Table of Contents
 
 5.  Operational Considerations
 
-   A controller implementing this augmentation is expected to perform
-   COSE signature verification, per [ProvenanceDraft], upon receipt of
-   telemetry associated with an Energy Object, and to update the five
-   leaves defined in this document accordingly.  This document does not
-   mandate a specific verification trigger interval; implementations MAY
-   verify on every received update, or at a configured polling interval,
-   as appropriate to the deployment.
+6.  Operational Considerations
+
+   This document defines two implementation roles.
+
+   A device (Energy Object) that signs its own telemetry implements
+   [ProvenanceDraft].  It holds a signing key, preferably in hardware,
+   signs the data it reports, and carries the signature in the
+   notification that delivers the data.  It does not implement the
+   module defined in this document, it does not see the leaves defined
+   here, and no YANG change is needed on the device.
+
+   A controller implements the module defined in this document.  It
+   verifies COSE signatures per [ProvenanceDraft] when telemetry is
+   received, and updates the five leaves in its own operational
+   datastore.  The leaves are never sent to the device and are never set
+   by it.
+
+   For a device that cannot sign, for example one that is read over
+   SNMP, the controller can collect the data, sign it on the device's
+   behalf, and record key-owner-controller as provenance-key-owner.
+   Auditors can then tell this apart from a device that signed for
+   itself.
+
+   This document does not mandate a verification interval.  A controller
+   MAY verify on every received update, or at a configured polling
+   interval, as appropriate to the deployment.
 
    The leaves are only meaningful where the controller has created
-   energy-node-attributes for the Energy Object, as described in
+   energy-node-attributes for the node or component, as described in
    [GreenController].  Where signing covers a whole node, the controller
    fills the node-level leaves.  Where signing covers one component, it
    fills the component-level leaves.  A controller MAY fill both.
 
    The identifier of the node is chosen by the controller.  The identity
-   of the underlying Energy Object is held in the references of
+   of the underlying device is held in the references of
    [GreenController].  The provenance-key-id is not a substitute for
    either, and a consumer that wants to relate a signature to a device
    follows the references, then the kid.
@@ -588,7 +608,7 @@ Table of Contents
    energy accounting, carbon reporting, or automated control decision
    until a subsequent verification succeeds.
 
-6.  Security Considerations
+7.  Security Considerations
 
    Implementations MUST ensure that the traceability-verified and
    related leaves defined in this document cannot be set directly via
@@ -606,7 +626,7 @@ Table of Contents
    not define a mechanism for provisioning or rotating such trust
    anchors; this is left to deployment-specific or future specification.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
    This document registers one URI in the "ns" subregistry of the IETF
    XML Registry [RFC3688]:
@@ -623,9 +643,9 @@ Table of Contents
    prefix: igp
    reference: RFC XXXX
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [GreenController]
               Lindblad, J., "A YANG Data Model for GREEN Network
@@ -679,7 +699,7 @@ Table of Contents
               DOI 10.17487/RFC9052, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9052>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [GreenFramework]
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.

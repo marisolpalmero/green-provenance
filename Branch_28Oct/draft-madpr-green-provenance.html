@@ -1216,27 +1216,30 @@ svg {
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-considerations-2" class="internal xref">Operational Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1627,57 +1630,68 @@ module ietf-green-provenance {
 <section id="section-5">
       <h2 id="name-operational-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+    </h2>
+</section>
+</div>
+<div id="operational-considerations-1">
+<section id="section-6">
+      <h2 id="name-operational-considerations-2">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations-2" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-5-1">A controller implementing this augmentation is expected to perform COSE signature verification, per <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>, upon receipt of telemetry associated with an Energy Object, and to update the five leaves defined in this document accordingly. This document does not mandate a specific verification trigger interval; implementations <span class="bcp14">MAY</span> verify on every received update, or at a configured polling interval, as appropriate to the deployment.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">The leaves are only meaningful where the controller has created <code>energy-node-attributes</code> for the Energy Object, as described in <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>. Where signing covers a whole node, the controller fills the node-level leaves. Where signing covers one component, it fills the component-level leaves. A controller <span class="bcp14">MAY</span> fill both.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">The identifier of the node is chosen by the controller. The identity of the underlying Energy Object is held in the <code>references</code> of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>. The <code>provenance-key-id</code> is not a substitute for either, and a consumer that wants to relate a signature to a device follows the <code>references</code>, then the <code>kid</code>.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">When <code>traceability-verified</code> is <code>false</code>, this document RECOMMENDS that a controller exclude the associated node or component's data from any energy accounting, carbon reporting, or automated control decision until a subsequent verification succeeds.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-6-1">This document defines two implementation roles.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">A device (Energy Object) that signs its own telemetry implements <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. It holds a signing key, preferably in hardware, signs the data it reports, and carries the signature in the notification that delivers the data. It does not implement the module defined in this document, it does not see the leaves defined here, and no YANG change is needed on the device.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">A controller implements the module defined in this document. It verifies COSE signatures per <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> when telemetry is received, and updates the five leaves in its own operational datastore. The leaves are never sent to the device and are never set by it.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">For a device that cannot sign, for example one that is read over SNMP, the controller can collect the data, sign it on the device's behalf, and record <code>key-owner-controller</code> as <code>provenance-key-owner</code>. Auditors can then tell this apart from a device that signed for itself.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">This document does not mandate a verification interval. A controller <span class="bcp14">MAY</span> verify on every received update, or at a configured polling interval, as appropriate to the deployment.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">The leaves are only meaningful where the controller has created <code>energy-node-attributes</code> for the node or component, as described in <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>. Where signing covers a whole node, the controller fills the node-level leaves. Where signing covers one component, it fills the component-level leaves. A controller <span class="bcp14">MAY</span> fill both.<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">The identifier of the node is chosen by the controller. The identity of the underlying device is held in the <code>references</code> of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>. The <code>provenance-key-id</code> is not a substitute for either, and a consumer that wants to relate a signature to a device follows the <code>references</code>, then the <code>kid</code>.<a href="#section-6-7" class="pilcrow">¶</a></p>
+<p id="section-6-8">When <code>traceability-verified</code> is <code>false</code>, this document RECOMMENDS that a controller exclude the associated node or component's data from any energy accounting, carbon reporting, or automated control decision until a subsequent verification succeeds.<a href="#section-6-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-6">
+<section id="section-7">
       <h2 id="name-security-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">Implementations <span class="bcp14">MUST</span> ensure that the <code>traceability-verified</code> and related leaves defined in this document cannot be set directly via configuration, and are exclusively derived from an actual COSE verification procedure performed by the controller. As these leaves are <code>config false</code>, conformant implementations already enforce this at the data model level. Implementers are nonetheless reminded that the integrity of these leaves depends on the correctness of the verification procedure that populates them. Access control mechanisms such as NACM <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> <span class="bcp14">SHOULD</span> restrict write access to the underlying datastore state.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The <code>key-owner-external-ca</code> identity introduces a dependency on a trust anchor for the external authority in question. This document does not define a mechanism for provisioning or rotating such trust anchors; this is left to deployment-specific or future specification.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-7-1">Implementations <span class="bcp14">MUST</span> ensure that the <code>traceability-verified</code> and related leaves defined in this document cannot be set directly via configuration, and are exclusively derived from an actual COSE verification procedure performed by the controller. As these leaves are <code>config false</code>, conformant implementations already enforce this at the data model level. Implementers are nonetheless reminded that the integrity of these leaves depends on the correctness of the verification procedure that populates them. Access control mechanisms such as NACM <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> <span class="bcp14">SHOULD</span> restrict write access to the underlying datastore state.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The <code>key-owner-external-ca</code> identity introduces a dependency on a trust anchor for the external authority in question. This document does not define a mechanism for provisioning or rotating such trust anchors; this is left to deployment-specific or future specification.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-iana-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-7-1">This document registers one URI in the "ns" subregistry of the IETF
-XML Registry <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-7-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7-2">
+<p id="section-8-1">This document registers one URI in the "ns" subregistry of the IETF
+XML Registry <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8-2">
 <pre>
 URI: urn:ietf:params:xml:ns:yang:ietf-green-provenance
 Registrant Contact: The IESG.
 XML: N/A; the requested URI is an XML namespace.
-</pre><a href="#section-7-2" class="pilcrow">¶</a>
+</pre><a href="#section-8-2" class="pilcrow">¶</a>
 </div>
-<p id="section-7-3">This document registers one YANG module in the "YANG Module Names"
-registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-7-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7-4">
+<p id="section-8-3">This document registers one YANG module in the "YANG Module Names"
+registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-8-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-8-4">
 <pre>
 name: ietf-green-provenance
 namespace: urn:ietf:params:xml:ns:yang:ietf-green-provenance
 prefix: igp
 reference: RFC XXXX
-</pre><a href="#section-7-4" class="pilcrow">¶</a>
+</pre><a href="#section-8-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-8.1">
+<section id="section-9.1">
         <h3 id="name-normative-references">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="GreenController">[GreenController]</dt>
@@ -1724,9 +1738,9 @@ reference: RFC XXXX
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-8.2">
+<section id="section-9.2">
         <h3 id="name-informative-references">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="GreenFramework">[GreenFramework]</dt>
