@@ -5,13 +5,13 @@
 Getting Ready for Energy-Efficient Networking                 M. Palmero
 Internet-Draft                                               Independent
 Intended status: Standards Track                                D. Lopez
-Expires: 6 January 2027                                  A. Mendez Perez
+Expires: 1 May 2027                                      A. Mendez Perez
                                                               Telefonica
                                                             P. Andersson
                                                            Ionio Systems
                                                             R. Osterberg
                                                                   Kodeta
-                                                             5 July 2026
+                                                         28 October 2026
 
 
 Provenance Traceability Augmentation for the GREEN Power and Energy YANG
@@ -69,7 +69,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 January 2027.
+   This Internet-Draft will expire on 1 May 2027.
 
 Copyright Notice
 
@@ -348,6 +348,13 @@ Table of Contents
         for each Energy Object, exposing the outcome of COSE
         signature verification performed by the controller.
 
+        The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL',
+        'SHALL NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT
+        RECOMMENDED', 'MAY', and 'OPTIONAL' in this document are
+        to be interpreted as described in BCP 14 (RFC 2119)
+        (RFC 8174) when, and only when, they appear in all
+        capitals, as shown here.
+
         Copyright (c) 2026 IETF Trust and the persons identified as
         authors of the code.  All rights reserved.
 
@@ -571,9 +578,9 @@ Table of Contents
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.
               P., Stephan, E., and Q. Wu, "Framework for Energy
               Efficiency Management", Work in Progress, Internet-Draft,
-              draft-ietf-green-framework-01, 17 March 2026,
+              draft-ietf-green-framework-02, 5 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-green-
-              framework-01>.
+              framework-02>.
 
    [GreenTerminology]
               Chen, G., Boucadair, M., Wu, Q., Contreras, L. M., and M.
@@ -586,9 +593,9 @@ Table of Contents
    [PowerAndEnergy]
               Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
               "Power and Energy YANG Module", Work in Progress,
-              Internet-Draft, draft-ietf-green-power-and-energy-yang-03,
-              4 July 2026, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-green-power-and-energy-yang-03>.
+              Internet-Draft, draft-ietf-green-power-and-energy-yang-04,
+              9 September 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-green-power-and-energy-yang-04>.
 
    [ProvenanceDraft]
               Lopez, D., Pastor, A., Feng, A. H., Perez, A. M., and H.
