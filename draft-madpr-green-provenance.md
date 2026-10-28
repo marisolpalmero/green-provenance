@@ -75,6 +75,7 @@ informative:
       Internet-Draft: draft-ietf-opsawg-yang-provenance-06
   PowerAndEnergy: I-D.ietf-green-power-and-energy-yang
   RFC8340:
+  RFC8342:
   GreenTerminology: I-D.ietf-green-terminology
   GreenFramework: I-D.ietf-green-framework
 
@@ -144,6 +145,8 @@ This document uses the term "kid" (Key Identifier) as defined in {{RFC9052}}, Se
 Provenance state describes how much trust applies to a piece of energy-related data. It is metadata about that data, not a separate object. For that reason this document augments the energy node attributes of {{GreenController}}, at the Energy Object levels, instead of defining a parallel tree. Data supplied by an external authority, such as a grid operator, is expected to be represented in the controller as an Energy Object, so that the same leaves apply.
 
 An earlier version of this idea targeted the per-device `energy-objects` tree of {{PowerAndEnergy}}. The signature is verified by the controller, and the controller's own model is where the trust decision belongs. A controller that reads many devices, and also reads legacy devices through other means, has one place to look. An earlier target also did not suit the case of a controller that signs for a device that cannot sign.
+
+The leaves are `config false`, so they are operational state. Under the Network Management Datastore Architecture {{RFC8342}}, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives. This is also why they can sit inside a container that is otherwise configuration: `config false` data nested under configuration is permitted by YANG, and NMDA shows it only in the operational datastore.
 
 Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in {{ProvenanceDraft}}. The leaves in this document live on the controller.
 
