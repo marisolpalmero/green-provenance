@@ -54,11 +54,25 @@ normative:
   RFC3688:
   RFC6020:
   RFC8345:
-  GreenController: draft-swepcarl-green-controller-yang-00
+  GreenController:
+    title: "A YANG Data Model for GREEN Network Controllers"
+    author:
+      - ins: J. Lindblad
+    seriesinfo:
+      Internet-Draft: draft-swepcarl-green-controller-yang-00
 
 
 informative:
-  ProvenanceDraft: draft-ietf-opsawg-yang-provenance-06
+  ProvenanceDraft:
+    title: "Applying COSE Signatures for YANG Data Provenance"
+    author:
+      - ins: D. Lopez
+      - ins: A. Pastor
+      - ins: A.H. Feng
+      - ins: A.M. Perez
+      - ins: H. Birkholz
+    seriesinfo:
+      Internet-Draft: draft-ietf-opsawg-yang-provenance-06
   PowerAndEnergy: I-D.ietf-green-power-and-energy-yang
   RFC8340:
   GreenTerminology: I-D.ietf-green-terminology
