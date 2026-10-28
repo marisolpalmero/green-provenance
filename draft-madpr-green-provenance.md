@@ -216,6 +216,8 @@ module: ietf-green-provenance
     +--ro traceability-failure-reason?  string
 ~~~
 
+In the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the system (the controller) and cannot be set via NETCONF or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.
+
 ## YANG Module Definition
 
 ~~~ yang
