@@ -205,6 +205,13 @@ module: ietf-green-provenance
     +--ro traceability-verified?        boolean
     +--ro traceability-last-verified?   yang:date-and-time
     +--ro traceability-failure-reason?  string
+  augment /nw:networks/nw:network/nw:node
+            /pen:energy-node-attributes/pen:component:
+    +--ro provenance-key-id?            string
+    +--ro provenance-key-owner?         identityref
+    +--ro traceability-verified?        boolean
+    +--ro traceability-last-verified?   yang:date-and-time
+    +--ro traceability-failure-reason?  string
 ~~~
 
 ## YANG Module Definition
