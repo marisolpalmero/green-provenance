@@ -416,11 +416,21 @@ module ietf-green-provenance {
 
 # Operational Considerations
 
-A controller implementing this augmentation is expected to perform COSE signature verification, per {{ProvenanceDraft}}, upon receipt of telemetry associated with an Energy Object, and to update the five leaves defined in this document accordingly. This document does not mandate a specific verification trigger interval; implementations MAY verify on every received update, or at a configured polling interval, as appropriate to the deployment.
+# Operational Considerations
 
-The leaves are only meaningful where the controller has created `energy-node-attributes` for the Energy Object, as described in {{GreenController}}. Where signing covers a whole node, the controller fills the node-level leaves. Where signing covers one component, it fills the component-level leaves. A controller MAY fill both.
+This document defines two implementation roles.
 
-The identifier of the node is chosen by the controller. The identity of the underlying Energy Object is held in the `references` of {{GreenController}}. The `provenance-key-id` is not a substitute for either, and a consumer that wants to relate a signature to a device follows the `references`, then the `kid`.
+A device (Energy Object) that signs its own telemetry implements {{ProvenanceDraft}}. It holds a signing key, preferably in hardware, signs the data it reports, and carries the signature in the notification that delivers the data. It does not implement the module defined in this document, it does not see the leaves defined here, and no YANG change is needed on the device.
+
+A controller implements the module defined in this document. It verifies COSE signatures per {{ProvenanceDraft}} when telemetry is received, and updates the five leaves in its own operational datastore. The leaves are never sent to the device and are never set by it.
+
+For a device that cannot sign, for example one that is read over SNMP, the controller can collect the data, sign it on the device's behalf, and record `key-owner-controller` as `provenance-key-owner`. Auditors can then tell this apart from a device that signed for itself.
+
+This document does not mandate a verification interval. A controller MAY verify on every received update, or at a configured polling interval, as appropriate to the deployment.
+
+The leaves are only meaningful where the controller has created `energy-node-attributes` for the node or component, as described in {{GreenController}}. Where signing covers a whole node, the controller fills the node-level leaves. Where signing covers one component, it fills the component-level leaves. A controller MAY fill both.
+
+The identifier of the node is chosen by the controller. The identity of the underlying device is held in the `references` of {{GreenController}}. The `provenance-key-id` is not a substitute for either, and a consumer that wants to relate a signature to a device follows the `references`, then the `kid`.
 
 When `traceability-verified` is `false`, this document RECOMMENDS that a controller exclude the associated node or component's data from any energy accounting, carbon reporting, or automated control decision until a subsequent verification succeeds.
 
