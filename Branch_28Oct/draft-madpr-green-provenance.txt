@@ -100,12 +100,11 @@ Table of Contents
      4.1.  Tree Diagram
      4.2.  YANG Module Definition
    5.  Operational Considerations
-   6.  Operational Considerations
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -166,9 +165,8 @@ Table of Contents
        applicable.
 
    These leaves are controller-side operational state.  They exist only
-   in the controller's datastore.  Energy Objects do not populate them,
-   and they are not carried in YANG-Push notifications, NETCONF replies,
-   or other messages sent by devices.
+   in the controller's datastore, and they are not carried in YANG-Push
+   notifications, NETCONF replies, or other messages sent by devices.
 
    Only the outcome of verification is stored.  The provenance-signature
    defined by [ProvenanceDraft] is not stored in the datastore.  It is
@@ -240,6 +238,9 @@ Table of Contents
    own telemetry only needs to produce the COSE signature as described
    in [ProvenanceDraft].  The leaves in this document live on the
    controller.
+
+   An Energy Object MUST NOT populate these leaves, and a controller
+   MUST NOT accept values for them from an Energy Object.
 
 3.2.  Why a Grouping Used at Node and Component Level
 
@@ -376,10 +377,9 @@ Table of Contents
        +--ro traceability-failure-reason?  string
 
    In the tree notation above, +--ro indicates config false leaves: they
-   represent operational state populated exclusively by the system (the
-   controller) and cannot be set via NETCONF or any other configuration
-   mechanism.  See RFC 8340 for a full description of the tree diagram
-   notation.
+   represent operational state populated exclusively by the controller
+   and cannot be set via NETCONF or any other configuration mechanism.
+   See RFC 8340 for a full description of the tree diagram notation.
 
 4.2.  YANG Module Definition
 
@@ -581,8 +581,6 @@ Table of Contents
 
 5.  Operational Considerations
 
-6.  Operational Considerations
-
    This document defines two implementation roles.
 
    A device (Energy Object) that signs its own telemetry implements
@@ -595,8 +593,7 @@ Table of Contents
    A controller implements the module defined in this document.  It
    verifies COSE signatures per [ProvenanceDraft] when telemetry is
    received, and updates the five leaves in its own operational
-   datastore.  The leaves are never sent to the device and are never set
-   by it.
+   datastore.
 
    For a device that cannot sign, for example one that is read over
    SNMP, the controller can collect the data, sign it on the device's
@@ -625,7 +622,7 @@ Table of Contents
    energy accounting, carbon reporting, or automated control decision
    until a subsequent verification succeeds.
 
-7.  Security Considerations
+6.  Security Considerations
 
    Implementations MUST ensure that the traceability-verified and
    related leaves defined in this document cannot be set directly via
@@ -643,7 +640,7 @@ Table of Contents
    not define a mechanism for provisioning or rotating such trust
    anchors; this is left to deployment-specific or future specification.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
    This document registers one URI in the "ns" subregistry of the IETF
    XML Registry [RFC3688]:
@@ -660,9 +657,9 @@ Table of Contents
    prefix: igp
    reference: RFC XXXX
 
-9.  References
+8.  References
 
-9.1.  Normative References
+8.1.  Normative References
 
    [GreenController]
               Lindblad, J., "A YANG Data Model for GREEN Network
@@ -716,7 +713,7 @@ Table of Contents
               DOI 10.17487/RFC9052, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9052>.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [GreenFramework]
               Claise, B., Contreras, L. M., Lindblad, J., Palmero, M.
