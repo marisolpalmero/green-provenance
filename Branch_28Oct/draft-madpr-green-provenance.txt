@@ -634,6 +634,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-swepcarl-
               green-controller-yang-00>.
 
+   [ProvenanceDraft]
+              Lopez, D., Pastor, A., Feng, A. H., Perez, A. M., and H.
+              Birkholz, "Applying COSE Signatures for YANG Data
+              Provenance", Work in Progress, Internet-Draft, draft-ietf-
+              opsawg-yang-provenance-06, n.d.,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
+              yang-provenance-06>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -695,14 +703,6 @@ Table of Contents
               Internet-Draft, draft-ietf-green-power-and-energy-yang-04,
               9 September 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-green-power-and-energy-yang-04>.
-
-   [ProvenanceDraft]
-              Lopez, D., Pastor, A., Feng, A. H., Perez, A. M., and H.
-              Birkholz, "Applying COSE Signatures for YANG Data
-              Provenance", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-yang-provenance-06, n.d.,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              yang-provenance-06>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
