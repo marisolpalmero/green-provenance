@@ -114,6 +114,8 @@ This document augments the energy node attributes of {{GreenController}} with fi
 
 5. the reason for the most recent verification failure, when applicable.
 
+These leaves are controller-side operational state. They exist only in the controller's datastore. Energy Objects do not populate them, and they are not carried in YANG-Push notifications, NETCONF replies, or other messages sent by devices.
+
 Only the outcome of verification is stored. The `provenance-signature` defined by {{ProvenanceDraft}} is not stored in the datastore. It is carried in the transport or notification that delivers the data, and the controller verifies it on receipt.
 
 The controller model describes what is collected, and this draft say whether the collected data is verified. Together they can support the "Read provenance data" step of {{GreenController}}, where a consumer follows the collection graph, compares it with the inventory, and checks for unreported devices or double counting.
