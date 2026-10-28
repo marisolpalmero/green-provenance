@@ -114,7 +114,7 @@ This document augments the energy node attributes of {{GreenController}} with fi
 
 5. the reason for the most recent verification failure, when applicable.
 
-These leaves are controller-side operational state. They exist only in the controller's datastore. Energy Objects do not populate them, and they are not carried in YANG-Push notifications, NETCONF replies, or other messages sent by devices.
+These leaves are controller-side operational state. They exist only in the controller's datastore, and they are not carried in YANG-Push notifications, NETCONF replies, or other messages sent by devices.
 
 Only the outcome of verification is stored. The `provenance-signature` defined by {{ProvenanceDraft}} is not stored in the datastore. It is carried in the transport or notification that delivers the data, and the controller verifies it on receipt.
 
@@ -150,6 +150,8 @@ An earlier version of this idea targeted the per-device `energy-objects` tree of
 The leaves are `config false`, so they are operational state. Under the Network Management Datastore Architecture {{RFC8342}}, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives. This is also why they can sit inside a container that is otherwise configuration: `config false` data nested under configuration is permitted by YANG, and NMDA shows it only in the operational datastore.
 
 Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in {{ProvenanceDraft}}. The leaves in this document live on the controller.
+
+An Energy Object MUST NOT populate these leaves, and a controller MUST NOT accept values for them from an Energy Object.
 
 ## Why a Grouping Used at Node and Component Level
 
@@ -218,7 +220,7 @@ module: ietf-green-provenance
     +--ro traceability-failure-reason?  string
 ~~~
 
-In the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the system (the controller) and cannot be set via NETCONF or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.
+In the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the controller and cannot be set via NETCONF or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.
 
 ## YANG Module Definition
 
@@ -422,13 +424,11 @@ module ietf-green-provenance {
 
 # Operational Considerations
 
-# Operational Considerations
-
 This document defines two implementation roles.
 
 A device (Energy Object) that signs its own telemetry implements {{ProvenanceDraft}}. It holds a signing key, preferably in hardware, signs the data it reports, and carries the signature in the notification that delivers the data. It does not implement the module defined in this document, it does not see the leaves defined here, and no YANG change is needed on the device.
 
-A controller implements the module defined in this document. It verifies COSE signatures per {{ProvenanceDraft}} when telemetry is received, and updates the five leaves in its own operational datastore. The leaves are never sent to the device and are never set by it.
+A controller implements the module defined in this document. It verifies COSE signatures per {{ProvenanceDraft}} when telemetry is received, and updates the five leaves in its own operational datastore.
 
 For a device that cannot sign, for example one that is read over SNMP, the controller can collect the data, sign it on the device's behalf, and record `key-owner-controller` as `provenance-key-owner`. Auditors can then tell this apart from a device that signed for itself.
 
