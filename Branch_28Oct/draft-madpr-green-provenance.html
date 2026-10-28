@@ -1327,7 +1327,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <p id="section-3.1-1">Provenance state describes how much trust applies to a piece of energy-related data. It is metadata about that data, not a separate object. For that reason this document augments the energy node attributes of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>, at the Energy Object levels, instead of defining a parallel tree. Data supplied by an external authority, such as a grid operator, is expected to be represented in the controller as an Energy Object, so that the same leaves apply.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">An earlier version of this idea targeted the per-device <code>energy-objects</code> tree of <span>[<a href="#PowerAndEnergy" class="cite xref">PowerAndEnergy</a>]</span>. The signature is verified by the controller, and the controller's own model is where the trust decision belongs. A controller that reads many devices, and also reads legacy devices through other means, has one place to look. An earlier target also did not suit the case of a controller that signs for a device that cannot sign.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. The leaves in this document live on the controller.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">The leaves are <code>config false</code>, so they are operational state. Under the Network Management Datastore Architecture <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives. This is also why they can sit inside a container that is otherwise configuration: <code>config false</code> data nested under configuration is permitted by YANG, and NMDA shows it only in the operational datastore.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. The leaves in this document live on the controller.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="why-a-grouping-used-at-node-and-component-level">
@@ -1741,8 +1742,12 @@ reference: RFC XXXX
 <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Feng, A. H.</span>, <span class="refAuthor">Perez, A. M.</span>, and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Applying COSE Signatures for YANG Data Provenance"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-opsawg-yang-provenance-06</span>, <span>n.d.</span>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06">https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-yang-provenance-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bjorklund, M.</span> and <span class="refAuthor">L. Berger, Ed.</span>, <span class="refTitle">"YANG Tree Diagrams"</span>, <span class="seriesInfo">BCP 215</span>, <span class="seriesInfo">RFC 8340</span>, <span class="seriesInfo">DOI 10.17487/RFC8340</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8340">https://www.rfc-editor.org/rfc/rfc8340</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8342">[RFC8342]</dt>
+      <dd>
+<span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

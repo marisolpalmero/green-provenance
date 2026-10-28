@@ -220,6 +220,16 @@ Table of Contents
    earlier target also did not suit the case of a controller that signs
    for a device that cannot sign.
 
+   The leaves are config false, so they are operational state.  Under
+   the Network Management Datastore Architecture [RFC8342], they are
+   read from the operational datastore of the controller and are never
+   configured.  The controller derives their values from its own
+   verification procedure and updates the operational state as telemetry
+   arrives.  This is also why they can sit inside a container that is
+   otherwise configuration: config false data nested under configuration
+   is permitted by YANG, and NMDA shows it only in the operational
+   datastore.
+
    Device-side YANG does not need to change.  A device that signs its
    own telemetry only needs to produce the COSE signature as described
    in [ProvenanceDraft].  The leaves in this document live on the
@@ -697,6 +707,11 @@ Table of Contents
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8340>.
+
+   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
+              and R. Wilton, "Network Management Datastore Architecture
+              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8342>.
 
 Acknowledgments
 
