@@ -1,5 +1,5 @@
 ---
-title: "Provenance Traceability Augmentation for the GREEN Controller YANG Model"
+title: "Provenance Traceability for the GREEN Controller YANG Model"
 abbrev: "GREEN-Provenance"
 category: std
 docname: draft-madpr-green-provenance-latest
