@@ -1282,8 +1282,9 @@ svg {
           <p id="section-1-6.5.1">the reason for the most recent verification failure, when applicable.<a href="#section-1-6.5.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-1-7">Only the outcome of verification is stored. The <code>provenance-signature</code> defined by <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> is not stored in the datastore. It is carried in the transport or notification that delivers the data, and the controller verifies it on receipt.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">The controller model describes what is collected, and this draft say whether the collected data is verified. Together they can support the "Read provenance data" step of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>, where a consumer follows the collection graph, compares it with the inventory, and checks for unreported devices or double counting.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-7">These leaves are controller-side operational state. They exist only in the controller's datastore. Energy Objects do not populate them, and they are not carried in YANG-Push notifications, NETCONF replies, or other messages sent by devices.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">Only the outcome of verification is stored. The <code>provenance-signature</code> defined by <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> is not stored in the datastore. It is carried in the transport or notification that delivers the data, and the controller verifies it on receipt.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">The controller model describes what is collected, and this draft say whether the collected data is verified. Together they can support the "Read provenance data" step of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>, where a consumer follows the collection graph, compares it with the inventory, and checks for unreported devices or double counting.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <div id="motivating-scenarios">
 <section id="section-1.1">
         <h3 id="name-motivating-scenarios">

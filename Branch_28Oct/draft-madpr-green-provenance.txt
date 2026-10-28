@@ -165,6 +165,11 @@ Table of Contents
    5.  the reason for the most recent verification failure, when
        applicable.
 
+   These leaves are controller-side operational state.  They exist only
+   in the controller's datastore.  Energy Objects do not populate them,
+   and they are not carried in YANG-Push notifications, NETCONF replies,
+   or other messages sent by devices.
+
    Only the outcome of verification is stored.  The provenance-signature
    defined by [ProvenanceDraft] is not stored in the datastore.  It is
    carried in the transport or notification that delivers the data, and
