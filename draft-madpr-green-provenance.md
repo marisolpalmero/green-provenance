@@ -167,9 +167,9 @@ A successful provenance verification identifies the signing key used to produce 
 
 The GREEN Framework {{GreenFramework}} distinguishes between device-initiated and controller-initiated, with provenance generation:
 
-- In the device-initiated model, the Energy Object generates and manages its own signing key and produces the provenance signature directly.
+- In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets `provenance-key-owner` to `key-owner-device in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.
 
-- In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself.
+- In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself, and sets `provenance-key-owner` to `key-owner-controller`.
 
 Both models produce a valid COSE signature that can be verified using the associated `kid`, but they represent different trust relationships.
 
@@ -304,7 +304,9 @@ module ietf-green-provenance {
     base key-owner-type;
     description
       "The Energy Object generated and manages its own key pair
-       and self-attests its own telemetry.";
+       and self-attests its own telemetry.  The controller
+       records this value after verifying the signature; the
+       Energy Object does not set it.;
   }
 
   identity key-owner-controller {
