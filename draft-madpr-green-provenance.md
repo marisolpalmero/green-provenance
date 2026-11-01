@@ -77,12 +77,15 @@ informative:
   RFC8342:
   GreenTerminology: I-D.ietf-green-terminology
   GreenFramework: I-D.ietf-green-framework
+  RFC9334:
+  I-D.ramki-ptp-hardware-rooted-attestation:
+  I-D.mendez-opsawg-yang-normalization:
 
 --- abstract
 
 This document defines a YANG module that augments the GREEN network controller YANG model {{GreenController}} to record the result of provenance verification for each Energy Object.
 
-The augmentation builds on the COSE-based signing mechanism defined in {{ProvenanceDraft}}. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.
+The augmentation builds on the COSE-based signing mechanism defined in {{ProvenanceDraft}}. The controller verifies each signature it receives against a key it trusts. For each node or component, it records whether the most recent signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. A signature that cannot be verified, for example because the key is unknown or the signature is missing, is recorded as a failure, with the reason.
 
 This allows operators and auditors to check not just that energy data is correct, but where it came from, and how much trust applies to each source.
 
@@ -92,7 +95,7 @@ This allows operators and auditors to check not just that energy data is correct
 
 The GREEN controller YANG model {{GreenController}} lets a network controller describe the energy and power setup of a network: which nodes and components exist, how energy and power data is collected for them, and how that data relates to the controller's inventory. Operators and auditors use this information for regulatory reporting, renewable energy attribution and carbon accounting. They need to know not only what the data says, but where it came from and whether it can be trusted.
 
-{{ProvenanceDraft}} defines how to protect YANG data with COSE signatures {{RFC9052}}. A `provenance-signature` can accompany YANG instance data, NETCONF notifications, or YANG-Push updates, so that a receiver can verify integrity and origin. It leaves the meaning of the COSE Key Identifier (`kid`) to the signer and the verifier: it is "to be locally agreed, used and interpreted by the signer and the signature validator" ({{ProvenanceDraft}}, Section 3.1). That document says how to sign and verify. It does not say how the result of verification is kept in a management data model.
+{{ProvenanceDraft}} defines how to attest YANG data with COSE signatures {{RFC9052}}. A `provenance-signature` can accompany YANG instance data, NETCONF notifications, or YANG-Push updates, so that a receiver can verify integrity and origin. It leaves the meaning of the COSE Key Identifier (`kid`) to the signer and the verifier: it is "to be locally agreed, used and interpreted by the signer and the signature validator" ({{ProvenanceDraft}}, Section 3.1). That document says how to sign and verify. It does not say how the result of verification is kept in a management data model.
 
 The three documents fit together as follows:
 
@@ -147,9 +150,9 @@ Provenance state describes how much trust applies to a piece of energy-related d
 
 An earlier version of this idea targeted the per-device `energy-objects` tree of {{PowerAndEnergy}}. The signature is verified by the controller, and the controller's own model is where the trust decision belongs. A controller that reads many devices, and also reads legacy devices through other means, has one place to look. An earlier target also did not suit the case of a controller that signs for a device that cannot sign.
 
-The leaves are `config false`, so they are operational state. Under the Network Management Datastore Architecture {{RFC8342}}, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives. This is also why they can sit inside a container that is otherwise configuration: `config false` data nested under configuration is permitted by YANG, and NMDA shows it only in the operational datastore.
+The leaves are `config false`, so they are operational state. Under the Network Management Datastore Architecture {{RFC8342}}, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives.
 
-Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in {{ProvenanceDraft}}. The leaves in this document live on the controller.
+This document does not require any change to device-side YANG. A device that signs its own telemetry produces the COSE signature as described in {{ProvenanceDraft}}, and the leaves in this document live on the controller. The controller verifies the data as it was received. It cannot tell by itself whether the device was in a trustworthy state when it produced the data. Evidence about the device itself, for example hardware-rooted attestation of its signing key, is outside the scope of this document.
 
 An Energy Object MUST NOT populate these leaves, and a controller MUST NOT accept values for them from an Energy Object.
 
@@ -171,7 +174,7 @@ A successful provenance verification identifies the signing key used to produce 
 
 The GREEN Framework {{GreenFramework}} distinguishes between device-initiated and controller-initiated, with provenance generation:
 
-- In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets `provenance-key-owner` to `key-owner-device in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.
+- In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets `provenance-key-owner` to `key-owner-device` in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.
 
 - In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself, and sets `provenance-key-owner` to `key-owner-controller`.
 
@@ -199,7 +202,7 @@ In deployments where the controller signs telemetry on behalf of an Energy Objec
 
 ## Tree Diagram
 
-The following tree diagram, using the notation defined in {{RFC8340}}, illustrates the augmentation defined by this document.
+The following tree diagram, using the syntax defined in {{RFC8340}}, illustrates the augmentation defined by this document.
 
 ~~~
 module: ietf-green-provenance
@@ -220,7 +223,7 @@ module: ietf-green-provenance
     +--ro traceability-failure-reason?  string
 ~~~
 
-In the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the controller and cannot be set via NETCONF or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.
+The same five leaves are added at node and component level through the grouping provenance-state.
 
 ## YANG Module Definition
 
@@ -392,6 +395,7 @@ module ietf-green-provenance {
     }
 
     leaf traceability-failure-reason {
+      when "../traceability-verified = 'false'";
       type string {
         length "0..512";
       }
@@ -402,6 +406,7 @@ module ietf-green-provenance {
          traceability-verified is false.";
     }
   }
+
 
   /* Augmentations */
 
@@ -428,7 +433,7 @@ This document defines two implementation roles.
 
 A device (Energy Object) that signs its own telemetry implements {{ProvenanceDraft}}. It holds a signing key, preferably in hardware, signs the data it reports, and carries the signature in the notification that delivers the data. It does not implement the module defined in this document, it does not see the leaves defined here, and no YANG change is needed on the device.
 
-A controller implements the module defined in this document. It verifies COSE signatures per {{ProvenanceDraft}} when telemetry is received, and updates the five leaves in its own operational datastore.
+A controller implements the module defined in this document. A controller SHOULD verify every signature it receives against a key it trusts.
 
 For a device that cannot sign, for example one that is read over SNMP, the controller can collect the data, sign it on the device's behalf, and record `key-owner-controller` as `provenance-key-owner`. Auditors can then tell this apart from a device that signed for itself.
 
@@ -445,6 +450,8 @@ When `traceability-verified` is `false`, this document RECOMMENDS that a control
 Implementations MUST ensure that the `traceability-verified` and related leaves defined in this document cannot be set directly via configuration, and are exclusively derived from an actual COSE verification procedure performed by the controller. As these leaves are `config false`, conformant implementations already enforce this at the data model level. Implementers are nonetheless reminded that the integrity of these leaves depends on the correctness of the verification procedure that populates them. Access control mechanisms such as NACM {{RFC8341}} SHOULD restrict write access to the underlying datastore state.
 
 The `key-owner-external-ca` identity introduces a dependency on a trust anchor for the external authority in question. This document does not define a mechanism for provisioning or rotating such trust anchors; this is left to deployment-specific or future specification.
+
+A valid signature shows that the data was not changed after it was signed and that it was signed with a given key. It does not show that the device was in a good state when it produced the data, or that the signing key is protected on the device. Remote attestation of the device, for example as described in the RATS architecture {{RFC9334}}, can give that assurance and is complementary to this document. Work on hardware-rooted attestation, such as {{I-D.ramki-ptp-hardware-rooted-attestation}}, which applies it to time synchronization, may be relevant for protecting signing keys. Work on a normalized representation of YANG data, such as {{I-D.mendez-opsawg-yang-normalization}}, may help signer and verifier agree on the bytes that are signed.
 
 # IANA Considerations
 
