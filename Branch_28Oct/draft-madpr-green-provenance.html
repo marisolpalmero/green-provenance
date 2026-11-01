@@ -12,7 +12,7 @@
 <meta content="Robin Osterberg" name="author">
 <meta content="
        This document defines a YANG module that augments the GREEN network controller YANG model   to record the result of provenance verification for each Energy Object. 
-       The augmentation builds on the COSE-based signing mechanism defined in  . For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. 
+       The augmentation builds on the COSE-based signing mechanism defined in  . The controller verifies each signature it receives against a key it trusts. For each node or component, it records whether the most recent signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. A signature that cannot be verified, for example because the key is unknown or the signature is missing, is recorded as a failure, with the reason. 
        This allows operators and auditors to check not just that energy data is correct, but where it came from, and how much trust applies to each source. 
     " name="description">
 <meta content="xml2rfc 3.34.1" name="generator">
@@ -1051,11 +1051,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">GREEN-Provenance</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Palmero, et al.</td>
-<td class="center">Expires 1 May 2027</td>
+<td class="center">Expires 5 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg {
 <dd class="internet-draft">draft-madpr-green-provenance-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-28" class="published">28 October 2026</time>
+<time datetime="2026-11-01" class="published">1 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-01">1 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-05">5 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1103,7 +1103,7 @@ svg {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a YANG module that augments the GREEN network controller YANG model <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span> to record the result of provenance verification for each Energy Object.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">The augmentation builds on the COSE-based signing mechanism defined in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. For each Energy Object, it records whether the most recent provenance signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">The augmentation builds on the COSE-based signing mechanism defined in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. The controller verifies each signature it receives against a key it trusts. For each node or component, it records whether the most recent signature was valid, which key was used to sign it, and who is responsible for that key: the device itself, the network controller acting on its behalf, or an external authority such as a grid energy provider. A signature that cannot be verified, for example because the key is unknown or the signature is missing, is recorded as a failure, with the reason.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">This allows operators and auditors to check not just that energy data is correct, but where it came from, and how much trust applies to each source.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1141,7 +1141,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1248,7 +1248,7 @@ svg {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">The GREEN controller YANG model <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span> lets a network controller describe the energy and power setup of a network: which nodes and components exist, how energy and power data is collected for them, and how that data relates to the controller's inventory. Operators and auditors use this information for regulatory reporting, renewable energy attribution and carbon accounting. They need to know not only what the data says, but where it came from and whether it can be trusted.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2"><span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> defines how to protect YANG data with COSE signatures <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>. A <code>provenance-signature</code> can accompany YANG instance data, NETCONF notifications, or YANG-Push updates, so that a receiver can verify integrity and origin. It leaves the meaning of the COSE Key Identifier (<code>kid</code>) to the signer and the verifier: it is "to be locally agreed, used and interpreted by the signer and the signature validator" (<span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>, Section 3.1). That document says how to sign and verify. It does not say how the result of verification is kept in a management data model.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2"><span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> defines how to attest YANG data with COSE signatures <span>[<a href="#RFC9052" class="cite xref">RFC9052</a>]</span>. A <code>provenance-signature</code> can accompany YANG instance data, NETCONF notifications, or YANG-Push updates, so that a receiver can verify integrity and origin. It leaves the meaning of the COSE Key Identifier (<code>kid</code>) to the signer and the verifier: it is "to be locally agreed, used and interpreted by the signer and the signature validator" (<span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>, Section 3.1). That document says how to sign and verify. It does not say how the result of verification is kept in a management data model.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">The three documents fit together as follows:<a href="#section-1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-4.1">
@@ -1328,8 +1328,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <p id="section-3.1-1">Provenance state describes how much trust applies to a piece of energy-related data. It is metadata about that data, not a separate object. For that reason this document augments the energy node attributes of <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>, at the Energy Object levels, instead of defining a parallel tree. Data supplied by an external authority, such as a grid operator, is expected to be represented in the controller as an Energy Object, so that the same leaves apply.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">An earlier version of this idea targeted the per-device <code>energy-objects</code> tree of <span>[<a href="#PowerAndEnergy" class="cite xref">PowerAndEnergy</a>]</span>. The signature is verified by the controller, and the controller's own model is where the trust decision belongs. A controller that reads many devices, and also reads legacy devices through other means, has one place to look. An earlier target also did not suit the case of a controller that signs for a device that cannot sign.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">The leaves are <code>config false</code>, so they are operational state. Under the Network Management Datastore Architecture <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives. This is also why they can sit inside a container that is otherwise configuration: <code>config false</code> data nested under configuration is permitted by YANG, and NMDA shows it only in the operational datastore.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">Device-side YANG does not need to change. A device that signs its own telemetry only needs to produce the COSE signature as described in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. The leaves in this document live on the controller.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">The leaves are <code>config false</code>, so they are operational state. Under the Network Management Datastore Architecture <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>, they are read from the operational datastore of the controller and are never configured. The controller derives their values from its own verification procedure and updates the operational state as telemetry arrives.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">This document does not require any change to device-side YANG. A device that signs its own telemetry produces the COSE signature as described in <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>, and the leaves in this document live on the controller. The controller verifies the data as it was received. It cannot tell by itself whether the device was in a trustworthy state when it produced the data. Evidence about the device itself, for example hardware-rooted attestation of its signing key, is outside the scope of this document.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.1-5">An Energy Object <span class="bcp14">MUST NOT</span> populate these leaves, and a controller <span class="bcp14">MUST NOT</span> accept values for them from an Energy Object.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1360,7 +1360,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.4-2">The GREEN Framework <span>[<a href="#GreenFramework" class="cite xref">GreenFramework</a>]</span> distinguishes between device-initiated and controller-initiated, with provenance generation:<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.4-3.1">
-            <p id="section-3.4-3.1.1">In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets <code>provenance-key-owner</code> to `key-owner-device in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.4-3.1.1">In the device-initiated model, the Energy Object generates and manages its own signing key, produces the provenance signature, and sends it with the telemetry. The controller verifies the signature and then sets <code>provenance-key-owner</code> to <code>key-owner-device</code> in its own datastore. The Energy Object has no knowledge of the leaf and does not set it.<a href="#section-3.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.4-3.2">
             <p id="section-3.4-3.2.1">In the controller-initiated model, the controller generates the provenance signature on behalf of an Energy Object that does not provide provenance information itself, and sets <code>provenance-key-owner</code> to <code>key-owner-controller</code>.<a href="#section-3.4-3.2.1" class="pilcrow">¶</a></p>
@@ -1396,7 +1396,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-tree-diagram">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-tree-diagram" class="section-name selfRef">Tree Diagram</a>
         </h3>
-<p id="section-4.1-1">The following tree diagram, using the notation defined in <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span>, illustrates the augmentation defined by this document.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">The following tree diagram, using the syntax defined in <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span>, illustrates the augmentation defined by this document.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-2">
 <pre>
 module: ietf-green-provenance
@@ -1417,7 +1417,7 @@ module: ietf-green-provenance
     +--ro traceability-failure-reason?  string
 </pre><a href="#section-4.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-3">In the tree notation above, +--ro indicates config false leaves: they represent operational state populated exclusively by the controller and cannot be set via NETCONF or any other configuration mechanism. See RFC 8340 for a full description of the tree diagram notation.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">The same five leaves are added at node and component level through the grouping provenance-state.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="yang-module-definition">
@@ -1594,6 +1594,7 @@ module ietf-green-provenance {
     }
 
     leaf traceability-failure-reason {
+      when "../traceability-verified = 'false'";
       type string {
         length "0..512";
       }
@@ -1604,6 +1605,7 @@ module ietf-green-provenance {
          traceability-verified is false.";
     }
   }
+
 
   /* Augmentations */
 
@@ -1635,7 +1637,7 @@ module ietf-green-provenance {
       </h2>
 <p id="section-5-1">This document defines two implementation roles.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">A device (Energy Object) that signs its own telemetry implements <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span>. It holds a signing key, preferably in hardware, signs the data it reports, and carries the signature in the notification that delivers the data. It does not implement the module defined in this document, it does not see the leaves defined here, and no YANG change is needed on the device.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">A controller implements the module defined in this document. It verifies COSE signatures per <span>[<a href="#ProvenanceDraft" class="cite xref">ProvenanceDraft</a>]</span> when telemetry is received, and updates the five leaves in its own operational datastore.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-3">A controller implements the module defined in this document. A controller <span class="bcp14">SHOULD</span> verify every signature it receives against a key it trusts.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">For a device that cannot sign, for example one that is read over SNMP, the controller can collect the data, sign it on the device's behalf, and record <code>key-owner-controller</code> as <code>provenance-key-owner</code>. Auditors can then tell this apart from a device that signed for itself.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <p id="section-5-5">This document does not mandate a verification interval. A controller <span class="bcp14">MAY</span> verify on every received update, or at a configured polling interval, as appropriate to the deployment.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">The leaves are only meaningful where the controller has created <code>energy-node-attributes</code> for the node or component, as described in <span>[<a href="#GreenController" class="cite xref">GreenController</a>]</span>. Where signing covers a whole node, the controller fills the node-level leaves. Where signing covers one component, it fills the component-level leaves. A controller <span class="bcp14">MAY</span> fill both.<a href="#section-5-6" class="pilcrow">¶</a></p>
@@ -1650,6 +1652,7 @@ module ietf-green-provenance {
       </h2>
 <p id="section-6-1">Implementations <span class="bcp14">MUST</span> ensure that the <code>traceability-verified</code> and related leaves defined in this document cannot be set directly via configuration, and are exclusively derived from an actual COSE verification procedure performed by the controller. As these leaves are <code>config false</code>, conformant implementations already enforce this at the data model level. Implementers are nonetheless reminded that the integrity of these leaves depends on the correctness of the verification procedure that populates them. Access control mechanisms such as NACM <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> <span class="bcp14">SHOULD</span> restrict write access to the underlying datastore state.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">The <code>key-owner-external-ca</code> identity introduces a dependency on a trust anchor for the external authority in question. This document does not define a mechanism for provisioning or rotating such trust anchors; this is left to deployment-specific or future specification.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">A valid signature shows that the data was not changed after it was signed and that it was signed with a given key. It does not show that the device was in a good state when it produced the data, or that the signing key is protected on the device. Remote attestation of the device, for example as described in the RATS architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span>, can give that assurance and is complementary to this document. Work on hardware-rooted attestation, such as <span>[<a href="#I-D.ramki-ptp-hardware-rooted-attestation" class="cite xref">I-D.ramki-ptp-hardware-rooted-attestation</a>]</span>, which applies it to time synchronization, may be relevant for protecting signing keys. Work on a normalized representation of YANG data, such as <span>[<a href="#I-D.mendez-opsawg-yang-normalization" class="cite xref">I-D.mendez-opsawg-yang-normalization</a>]</span>, may help signer and verifier agree on the bytes that are signed.<a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1744,7 +1747,15 @@ reference: RFC XXXX
 <dd class="break"></dd>
 <dt id="GreenTerminology">[GreenTerminology]</dt>
         <dd>
-<span class="refAuthor">Chen, G.</span>, <span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">M. P. Palmero</span>, <span class="refTitle">"Terminology for Energy Efficiency Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-green-terminology-02</span>, <time datetime="2026-06-30" class="refDate">30 June 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-green-terminology-02">https://datatracker.ietf.org/doc/html/draft-ietf-green-terminology-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Chen, G.</span>, <span class="refAuthor">Boucadair, M.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">M. P. Palmero</span>, <span class="refTitle">"Terminology for Energy Efficiency Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-green-terminology-03</span>, <time datetime="2026-10-30" class="refDate">30 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-green-terminology-03">https://datatracker.ietf.org/doc/html/draft-ietf-green-terminology-03</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.mendez-opsawg-yang-normalization">[I-D.mendez-opsawg-yang-normalization]</dt>
+        <dd>
+<span class="refAuthor">Pérez, A. M.</span> and <span class="refAuthor">D. Lopez</span>, <span class="refTitle">"Normalized Representation of YANG Data for Equivalence Evaluation"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-mendez-opsawg-yang-normalization-00</span>, <time datetime="2026-10-22" class="refDate">22 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-mendez-opsawg-yang-normalization-00">https://datatracker.ietf.org/doc/html/draft-mendez-opsawg-yang-normalization-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.ramki-ptp-hardware-rooted-attestation">[I-D.ramki-ptp-hardware-rooted-attestation]</dt>
+        <dd>
+<span class="refAuthor">Krishnan, R.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Prasad, A.</span>, and <span class="refAuthor">S. Addepalli</span>, <span class="refTitle">"Hardware-Rooted Attestation for Precision Time Protocol: Scalable Workload Identity and Phased PQC Readiness"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ramki-ptp-hardware-rooted-attestation-02</span>, <time datetime="2026-10-18" class="refDate">18 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ramki-ptp-hardware-rooted-attestation-02">https://datatracker.ietf.org/doc/html/draft-ramki-ptp-hardware-rooted-attestation-02</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="PowerAndEnergy">[PowerAndEnergy]</dt>
         <dd>
@@ -1755,8 +1766,12 @@ reference: RFC XXXX
 <span class="refAuthor">Bjorklund, M.</span> and <span class="refAuthor">L. Berger, Ed.</span>, <span class="refTitle">"YANG Tree Diagrams"</span>, <span class="seriesInfo">BCP 215</span>, <span class="seriesInfo">RFC 8340</span>, <span class="seriesInfo">DOI 10.17487/RFC8340</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8340">https://www.rfc-editor.org/rfc/rfc8340</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8342">[RFC8342]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9334">[RFC9334]</dt>
+      <dd>
+<span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Thaler, D.</span>, <span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Smith, N.</span>, and <span class="refAuthor">W. Pan</span>, <span class="refTitle">"Remote ATtestation procedureS (RATS) Architecture"</span>, <span class="seriesInfo">RFC 9334</span>, <span class="seriesInfo">DOI 10.17487/RFC9334</span>, <time datetime="2023-01" class="refDate">January 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9334">https://www.rfc-editor.org/rfc/rfc9334</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
