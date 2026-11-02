@@ -81,6 +81,15 @@ informative:
   RFC9334:
   I-D.ramki-ptp-hardware-rooted-attestation:
   I-D.mendez-opsawg-yang-normalization:
+    title: "Normalized Representation of YANG Data for Equivalence Evaluation"
+    author:
+      - ins: A.M. Perez
+        name: Ana Mendez Perez
+      - ins: D. Lopez
+        name: Diego Lopez
+    seriesinfo:
+      Internet-Draft: draft-mendez-opsawg-yang-normalization-00
+    date: 2026-10-22
 
 --- abstract
 
