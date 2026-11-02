@@ -748,7 +748,7 @@ Table of Contents
               terminology-03>.
 
    [I-D.mendez-opsawg-yang-normalization]
-              Pérez, A. M. and D. Lopez, "Normalized Representation of
+              Perez, A. M. and D. Lopez, "Normalized Representation of
               YANG Data for Equivalence Evaluation", Work in Progress,
               Internet-Draft, draft-mendez-opsawg-yang-normalization-00,
               22 October 2026, <https://datatracker.ietf.org/doc/html/
