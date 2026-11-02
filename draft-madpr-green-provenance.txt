@@ -470,7 +470,7 @@ Table of Contents
          "The Energy Object generated and manages its own key pair
           and self-attests its own telemetry.  The controller
           records this value after verifying the signature; the
-          Energy Object does not set it.;
+          Energy Object does not set it.";
      }
 
      identity key-owner-controller {
@@ -766,9 +766,9 @@ Table of Contents
    [PowerAndEnergy]
               Claise, B., Chen, G., Palmero, M. P., and J. Lindblad,
               "Power and Energy YANG Module", Work in Progress,
-              Internet-Draft, draft-ietf-green-power-and-energy-yang-04,
-              9 September 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-green-power-and-energy-yang-04>.
+              Internet-Draft, draft-ietf-green-power-and-energy-yang-05,
+              2 November 2026, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-green-power-and-energy-yang-05>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
