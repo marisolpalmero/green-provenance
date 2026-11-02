@@ -2,7 +2,7 @@
 title: "Provenance Traceability for the GREEN Controller YANG Model"
 abbrev: "GREEN-Provenance"
 category: std
-docname: draft-madpr-green-provenance-01
+docname: draft-madpr-green-provenance-latest
 date: 2026-11-02
 submissiontype: IETF
 consensus: true
