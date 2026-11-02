@@ -2,7 +2,8 @@
 title: "Provenance Traceability for the GREEN Controller YANG Model"
 abbrev: "GREEN-Provenance"
 category: std
-docname: draft-madpr-green-provenance-latest
+docname: draft-madpr-green-provenance-01
+date: 2026-11-02
 submissiontype: IETF
 consensus: true
 v: 3
@@ -313,7 +314,7 @@ module ietf-green-provenance {
       "The Energy Object generated and manages its own key pair
        and self-attests its own telemetry.  The controller
        records this value after verifying the signature; the
-       Energy Object does not set it.;
+       Energy Object does not set it.";
   }
 
   identity key-owner-controller {
